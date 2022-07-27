@@ -1,0 +1,31 @@
+<% @checker = 0 %>
+<% @product.each do |product| %>
+  <% @checker = @checker + 1 %>
+  <% end %>
+<% if @checker > 0 %>
+<% if user_signed_in? %>
+<h2>Hello, <%= current_user.email %>! Products now on sale:</h2>
+  <% else %>
+  <h2>Hello, dear Guest! Products now on sale:</h2>
+  <% end %>
+<% @product.each do |product| %>
+  <div class = "alert">
+  <h3> <%= product.title %></h3>
+  <p>
+    <img src = <%= product.image %> height = "250"/>
+  </p>
+    <%= link_to "Get to the product", product_path(product), :class => "btn btn-outline-primary"%>
+  </div>
+<% end %>
+  <% else %>
+  <% if user_signed_in? %>
+    <h2>
+      We are sorry <%= current_user.email %>, but there are no products on sale :(
+    </h2>
+    <% else %>
+    <h2>
+      We are sorry Dear Guest, but there are no products on sale :(
+    </h2>
+    <% end %>
+
+<% end %>
